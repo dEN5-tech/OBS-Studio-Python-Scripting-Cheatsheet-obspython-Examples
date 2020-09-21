@@ -26,7 +26,7 @@
 - [Ссылки](#links)
 - [Делать вклад](#contribute)
 
-## Using classes 
+## Использование классов 
 ```python
 class Example:
     def __init__(self,source_name=None):
@@ -42,9 +42,9 @@ class Example:
             obs.obs_data_release(settings)
             obs.obs_source_release(source)
 ```
-[Full example](src/example_class.py)  
+[Полный пример](src/example_class.py)  
 
-Or more compact:  
+Или более компактный:  
 ```python
 class _G:
     source_name = ''
@@ -59,8 +59,8 @@ def script_update(settings):
         pass
 ```
 
-## with statement 
-Automatically release .
+## с заявлением 
+Автоматически выпускать .
 
 ```python
 @contextmanager
@@ -79,10 +79,10 @@ with source_auto_release(self.source_name) as source:
             obs.obs_data_set_string(settings, "text", data)
             obs.obs_source_update(source, settings)
 ```
-[Full example](src/with_stmt.py)  
-See also :   
+[Полный пример](src/with_stmt.py)  
+Смотрите также :   
 https://docs.python.org/3/library/contextlib.html#contextlib.contextmanager
-## Passing arguments to callbacks
+## Передача аргументов обратным вызовам
 ```python
 from functools import partial
 ...
@@ -90,9 +90,9 @@ flag = obs.obs_data_get_bool(settings,"_obs_bool")
 eg.update_text = partial(eg.update_text,flag_func=flag)
 ...
 ```
-[Full example](src/callback_partial.py)
+[Полный пример](src/callback_partial.py)
 ## UI
-|code   | result  |
+|код   | результат  |
 | ---   | ---     |
 |`obs.obs_properties_add_button(props, "button1", "Refresh1:",callback)` | ![img](src/button.png) |
 |`obs.obs_properties_add_bool(props,"_bool","_bool:")` | ![img](src/bool.png) |
@@ -102,12 +102,12 @@ eg.update_text = partial(eg.update_text,flag_func=flag)
 |`obs.obs_properties_add_color(props,"_color","_color:") ` | ![img](src/color.png) |
 |`obs.obs_properties_add_font(props,"_font","_font:")  `|  ![img](src/font.png) |
 
-See also :   
+Смотрите также :   
 https://obsproject.com/docs/reference-properties.html#property-object-functions
 
-## Property modification
+## Модификация собственности
 ```python
-def callback(props, prop, *args, **kwargs):  # pass settings implicitly
+def callback(props, prop, *args, **kwargs):  # передать настройки неявно
     p = obs.obs_properties_get(props, "button")
     n = next(counter)
     obs.obs_property_set_description(p, f"refresh pressed {n} times")
@@ -121,11 +121,11 @@ def script_properties():
     obs.obs_property_set_modified_callback(b, callback)
     return props
 ```
-[Full example](src/property_modification.py)  
-See also :  
+[Полный пример](src/property_modification.py)  
+Смотрите также : 
 https://obsproject.com/docs/reference-properties.html#property-modification-functions
 
-## Additional input 
+## Дополнительный ввод 
 ```python
 def callback(props, prop, settings):
     _number = obs.obs_data_get_int(settings, "_int")
@@ -152,8 +152,8 @@ def script_properties():  # ui
     obs.obs_property_set_modified_callback(number, callback)
     ...
 ```
-[Full example](src/modification_prop.py)  
-See also :  
+[Полный пример](src/modification_prop.py)  
+Смотрите также : 
 https://obsproject.com/docs/reference-properties.html#property-modification-functions
 
 ## obs_data
@@ -174,16 +174,16 @@ https://obsproject.com/docs/reference-properties.html#property-modification-func
     ...
 
 ```
-[Full example](src/export_vars.py)  
-[Generated export1.txt](src/export1.txt) contains all variables available in `obspython`  
+[Полный пример](src/export_vars.py)  
+[Generated export1.txt](src/export1.txt) содержит все переменные, доступные в `obspython`  
 
-Note: properties share similar structure , in Python, Lua, C.
-[Example C](https://github.com/obsproject/obs-studio/blob/05c9ddd2293a17717a1bb4189406dfdad79a93e1/plugins/oss-audio/oss-input.c#L626)
+Примечание: свойства имеют аналогичную структуру в Python, Lua, C.
+[Пример C](https://github.com/obsproject/obs-studio/blob/05c9ddd2293a17717a1bb4189406dfdad79a93e1/plugins/oss-audio/oss-input.c#L626)
 
-## Save settings as json
+## Сохранить настройки как json
 
 ```python
-p = Path(__file__).absolute()  # current script path
+p = Path(__file__).absolute()  # текущий путь к скрипту
 file = p.parent / "saved_settings.json"
 try:
     content = obs.obs_data_get_json(Data._settings_)
@@ -192,15 +192,15 @@ try:
 except Exception as e:
     print(e, "cannot write to file")
 ```
-[Full example](src/save_json_data.py)  
-See also :  
+[Полный пример](src/save_json_data.py)  
+Смотрите также : 
 https://obsproject.com/docs/reference-settings.html  
 https://obsproject.com/docs/scripting.html#getting-the-current-script-s-path  
 
-# Source's and filters with identifier string
-To identify with `obs_source_get_unversioned_id` , or creating source/filter.
-## Source's
-| Name | Source type identifier string |
+# Источники и фильтры со строкой идентификатора
+Чтобы идентифицировать себя с `obs_source_get_unversioned_id` , или создание источника / фильтра.
+## Источник
+| название | Строка идентификатора исходного типа |
 | --- | --- | 
 | Browser | browser_source | 
 | Color Source | color_source |
@@ -211,8 +211,8 @@ To identify with `obs_source_get_unversioned_id` , or creating source/filter.
 | Media Source | ffmpeg_source |
 | Text (GDI+) | text_gdiplus |
 | Window Capture | window_capture |
-## Filters
-| Name | Source type identifier string |
+## Фильтры
+| название | Строка идентификатора исходного типа |
 | --- | --- | 
 | Compressor | compressor_filter | 
 | Expander | expander_filter | 
@@ -235,19 +235,19 @@ To identify with `obs_source_get_unversioned_id` , or creating source/filter.
 | Sharpen | sharpness_filter | 
 
 
-# Add source
-Create source and add it to current scene 
+# Добавить источник
+Создать источник и добавить его в текущую сцену 
 ```python
 obs.obs_data_set_string(settings, "text", "The quick brown fox jumps over the lazy dog")
 source = obs.obs_source_create_private("text_gdiplus", "test_py", settings)
 obs.obs_scene_add(scene, source)
 ```
-[Full example](src/source_add.py)  
-See also :  
+[Полный пример](src/source_add.py)  
+Смотрите также : 
 https://obsproject.com/docs/reference-scenes.html
 
-# Move source
-Get current scene , get source name, move source to location 
+# Переместить источник
+Получить текущую сцену, получить имя источника, переместить источник в местоположение 
 ```python
 def __init__(self):
     pos = obs.vec2()
@@ -269,9 +269,9 @@ def move_text_source(self):
         print("new values", self.location.x)
         obs.obs_sceneitem_set_pos(scene_item, self.location)
 ```
-[Full example](src/move_source_.py)
-# Add filter to source
-Filters are sources,they are not listed in obspython module, you need to know its id from `obs_source_info`
+[Полный пример](src/move_source_.py)
+# Добавить фильтр к источнику
+Фильтры - это источники, они не указаны в модуле obspython, вам нужно знать его идентификатор из `obs_source_info`
 ```python
 obs.obs_data_set_int(settings, "opacity", 50)
 source_color = obs.obs_source_create_private(
@@ -279,11 +279,11 @@ source_color = obs.obs_source_create_private(
 )
 obs.obs_source_filter_add(source, source_color)
 ```
-[Full example](src/source_filter.py)  
+[Полный пример](src/source_filter.py)  
 See also :  
-[Color correction source](https://github.com/obsproject/obs-studio/blob/c938ea712bce0e9d8e0cf348fd8f77725122b9a5/plugins/obs-filters/color-correction-filter.c#L408)  
+[Источник коррекции цвета](https://github.com/obsproject/obs-studio/blob/c938ea712bce0e9d8e0cf348fd8f77725122b9a5/plugins/obs-filters/color-correction-filter.c#L408)  
 https://obsproject.com/docs/reference-sources.html
-# Toggle source visibility
+# Переключить видимость источника
 ```python
 def toggle(self):
     current_scene = obs.obs_scene_from_source(obs.obs_frontend_get_current_scene())
@@ -291,9 +291,9 @@ def toggle(self):
     boolean = not obs.obs_sceneitem_visible(scene_item)
     obs.obs_sceneitem_set_visible(scene_item, boolean)
 ```
-[Full example](src/toggle_source_vis.py)
+[Полный пример](src/toggle_source_vis.py)
 
-# Set current scene
+# Установить текущую сцену
 ```python
 def set_current_scene(self):
     scenes = obs.obs_frontend_get_scenes()
@@ -302,13 +302,13 @@ def set_current_scene(self):
         if name == self.scene_name:
             obs.obs_frontend_set_current_scene(scene)
 ...
-scenes = obs.obs_frontend_get_scenes() # Dropdown menu UI
+scenes = obs.obs_frontend_get_scenes() # Выпадающее меню UI
 for scene in scenes:
     name = obs.obs_source_get_name(scene)
     obs.obs_property_list_add_string(p, name, name) 
 ```
 [Full example](src/get_scene_by_name.py)
-# Get set order in scene
+# Установите порядок в сцене
 ```python
 def get_order(scene_items=None):
     order = list()
@@ -333,30 +333,30 @@ def reorder():
                 obs.obs_sceneitem_set_order_position(s["scene_item"], s["index"])
 
 ```
-[Full example](src/change_order.py)
+[Полный пример](src/change_order.py)
 
-# Events
+# События
 ```python
 def on_event(event):
     if event == obs.OBS_FRONTEND_EVENT_SCENE_CHANGED:
-        raise Exception("Triggered when the current scene has changed.")
+        raise Exception("Срабатывает при изменении текущей сцены.")
 
 
 def script_load(settings):
     obs.obs_frontend_add_event_callback(on_event)
 ```
-[Full example](src/obs_event_exmpl.py)  
-See also:  
+[Полный пример](src/obs_event_exmpl.py)  
+Смотрите также: 
 https://obsproject.com/docs/reference-frontend-api.html#structures-enumerations  
-# Program state
-Those functions return true or false :
+# Состояние программы
+Эти функции возвращают истину или ложь:
 - `obs.obs_frontend_preview_program_mode_active()`
 - `obs.obs_frontend_replay_buffer_active()`
 - `obs.obs_frontend_recording_active()`
 - `obs.obs_frontend_recording_paused()`
 - `obs.obs_frontend_streaming_active()`
 
-# Timing (sequential primitives)
+# Время (последовательные примитивы)
 
 ```python
 def script_update(settings):
@@ -366,13 +366,13 @@ def script_update(settings):
         obs.timer_add(eg.update_text, 1 * 1000)
 ```
 [Full example](src/example_class.py)  
-Note: each time script updated it's removed first  
-See also :   
-[Version](src/start_stop_timer.py) with globals and only one timer allowed.  
+Примечание: каждый раз, когда скрипт обновляется, он сначала удаляется 
+Смотрите также : 
+[Версия](src/start_stop_timer.py) с глобальными объектами и разрешен только один таймер. 
 https://obsproject.com/docs/scripting.html#script-timers  
 
-# Hotkeys
-This hotkey example will create hotkeys in settings , but you need to bind it manually.
+# Горячие клавиши
+Этот пример горячих клавиш создаст горячие клавиши в настройках, но вам нужно привязать их вручную.
 ```python
 class Hotkey:
     def __init__(self, callback, obs_settings, _id):
@@ -389,7 +389,7 @@ class Hotkey:
 ...
 
 class h:
-    htk_copy = None  # this attribute will hold instance of Hotkey
+    htk_copy = None # этот атрибут будет содержать экземпляр Hotkey
 
 ...
 h1 = h()
@@ -404,14 +404,14 @@ def script_save(settings):
     h1.htk_copy.save_hotkey()
     h2.htk_copy.save_hotkey()
 ```
-This hotkey example will create hotkeys on fly from json settings , but you need to know internal id.
+Этот пример горячих клавиш будет создавать горячие клавиши на лету из настроек json, но вам нужно знать внутренний идентификатор.
 ```python
 ID = "htk_id"
 JSON_DATA = '{"%s":[{"key":"OBS_KEY_1"}]}' % ID
 
 def on_obs_key_1(pressed):
     if pressed:
-        raise Exception("hotkey 1 pressed")
+        raise Exception("горячая клавиша 1 нажата")
 
 def script_load(settings):
     s = obs.obs_data_create_from_json(JSON_DATA)
@@ -419,32 +419,32 @@ def script_load(settings):
     h = obs.obs_hotkey_register_frontend(ID, ID, on_obs_key_1)
     obs.obs_hotkey_load(h, a)
 ```
-- [Full example](src/obs_httkeys.py) 
-- [Example with global ](src/hotkey_exmpl.py)
-- [Full example with json](src/hotkey_json.py)  
+- [Полный пример](src/obs_httkeys.py) 
+- [Пример с глобальным ](src/hotkey_exmpl.py)
+- [Полный пример с json](src/hotkey_json.py)  
 
-See also:  
+Смотрите также: 
 https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h
 
-# Debug
-There is no stdin therefore you can't use pdb , options are:
-- using `print`
-- using pycharm remote debugging (localhost)
-- using [vscode](https://code.visualstudio.com/docs/python/debugging) attach to the process:
-    - Load python extension
-    - open script file , `pip install debugpy` , place  `debugpy.breakpoint()` somewhere
-        - Run (F5) select configuration ( Attach using Process ID)
-        - select obs (on windows `obs64.exe`)
-        - View  select Debug Console (ctrl+shift+y) 
-- [Example debugpy obs ](src/debug_exmpl.py)
+# Отлаживать
+Нет стандартного ввода, поэтому вы не можете использовать pdb, варианты:
+- с помощью `print`
+- с использованием удаленной отладки pycharm (localhost)
+- с помощью [vscode](https://code.visualstudio.com/docs/python/debugging) прикрепить к процессу:
+    - Загрузить расширение Python
+    - oфайл сценария pen, `pip install debugpy`, поместите где-нибудь`debugpy.breakpoint()`
+        - Запустите (F5) выберите конфигурацию (Присоединить с помощью идентификатора процесса)
+        - выбрать obs (в windows `obs64.exe`)
+        - Просмотр выберите консоль отладки (ctrl + shift + y)
+- [Пример debugpy obs ](src/debug_exmpl.py)
 
-![screenshot](src/debug.png)  
+![Скриншот](src/debug.png)  
 
-# Links
-- [Scripts](https://obsproject.com/forum/resources/categories/scripts.5/)
-- [Repo](https://github.com/obsproject/obs-studio)
-- [Docs](https://obsproject.com/docs/) , [Docs/scripting](https://obsproject.com/docs/scripting.html) , [Docs index](https://obsproject.com/docs/genindex.html)
+# Ссылки
+- [Скрипты](https://obsproject.com/forum/resources/categories/scripts.5/)
+- [Репо](https://github.com/obsproject/obs-studio)
+- [Документы](https://obsproject.com/docs/) , [Документы / скрипты](https://obsproject.com/docs/scripting.html) , [Указатель документов](https://obsproject.com/docs/genindex.html)
 - [Gist](https://gist.github.com/search?l=Python&q=obspython)
 - [Github](https://github.com/search?l=Python&o=desc&q=obspython&s=indexed&type=Code)
-# Contribute
-Contributions are welcome!
+# Делать вклад
+Пожертвования приветствуются!
