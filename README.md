@@ -1,8 +1,8 @@
-# OBS Studio Python Scripting Cheatsheet
-- `obspython` OBS Studio API.Obs scripts examples in `/src` 
-- Each obs script example mostly will operate on *existsing* text source
-- It is possible to duplicate scripts and re-add them to OBS ( names must be different) 
-# Table of content 
+# Шпаргалка по сценариям на Python в OBS Studio
+- `obspython` Примеры сценариев OBS Studio API.Obs в `/src` 
+- Каждый пример сценария obs в основном будет работать с *существующим* текстовым источником
+- Есть возможность дублировать скрипты и повторно добавлять их в OBS (имена должны быть разными)
+# Оглавление 
 - [Using classes](#using-classes)
 - [with statement](#with-statement)
 - [Passing arguments to callbacks](#passing-arguments-to-callbacks)
